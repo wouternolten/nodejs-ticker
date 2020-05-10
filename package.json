@@ -1,0 +1,24 @@
+{
+  "name": "ticker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wouternolten/nodejs-ticker.git"
+  },
+  "keywords": [
+    "ticker",
+    "nodejs",
+    "crypto"
+  ],
+  "author": "Wouter Nolten",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wouternolten/nodejs-ticker/issues"
+  },
+  "homepage": "https://github.com/wouternolten/nodejs-ticker#readme"
+}
