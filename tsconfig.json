@@ -5,17 +5,32 @@
     "target": "es6",
     "moduleResolution": "node",
     "sourceMap": true,
+    "strict": true,
+    "outDir": "dist",
     "lib": [
       "es2015"
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
     ],
-    "outDir": "dist"
+    "baseUrl": ".",
+    "types": [
+      "webpack-env"
+    ],
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
   },
   "include": [
-    "src/**/*",
-    "index.ts"
+    "index.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx"
   ],
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
-  ]
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }
