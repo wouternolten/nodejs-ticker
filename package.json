@@ -36,6 +36,7 @@
     "@typescript-eslint/eslint-plugin": "^2.31.0",
     "@typescript-eslint/parser": "^2.31.0",
     "babel-jest": "^26.0.1",
+    "http-status-codes": "^1.4.0",
     "ts-jest": "^25.5.1",
     "tslint": "^6.1.2",
     "typescript": "^3.8.3",
