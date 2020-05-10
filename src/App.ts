@@ -1,4 +1,5 @@
-import * as express from "express";
+//import * as express from "express";
+let express = require('express');
 
 class App {
   public express;
