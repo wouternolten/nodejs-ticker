@@ -1,27 +1,18 @@
 module.exports = {
-  root: true,
-  env: {
-    browser: true,
-    es6: true,
-    node: true,
-  },
-  extends: [
-    "plugin:vue/essential",
-    "@vue/airbnb",
-    "@vue/typescript/recommended",
-  ],
-  globals: {
-    Atomics: "readonly",
-    SharedArrayBuffer: "readonly",
-  },
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    ecmaVersion: 2020,
+    ecmaVersion: 2018,
     sourceType: "module",
   },
   plugins: ["@typescript-eslint"],
+  env: {
+    es6: true,
+    browser: true,
+    node: true,
+    jest: true,
+  },
+  extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   rules: {
-    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "no-console": "off",
   },
 };

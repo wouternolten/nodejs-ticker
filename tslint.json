@@ -1,9 +1,13 @@
 {
-    "defaultSeverity": "error",
-    "extends": [
-        "tslint:recommended"
-    ],
-    "jsRules": {},
-    "rules": {},
-    "rulesDirectory": []
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended"],
+  "jsRules": {},
+  "rules": {
+    "no-console": false,
+    "interface-name": [true, "always-prefix"]
+  },
+  "rulesDirectory": [],
+  "linterOptions": {
+    "exclude": ["bin", "build", "config", "coverage", "node_modules", "@types"]
+  }
 }
