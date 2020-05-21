@@ -1,6 +1,6 @@
 import { RetrieveBinanceTicker } from "./RetrieveBinanceTicker";
 import { InvalidSymbolException } from "../../../Application/Exceptions/InvalidSymbolException";
-import axios from "axios";
+import axios, { AxiosStatic } from "axios";
 import { Ticker } from "../../../Application/Ticker/Ticker";
 import HttpStatus from "http-status-codes";
 import { IllegalCharacterException } from "../../../Application/Exceptions/IllegalCharacterException";
@@ -10,7 +10,7 @@ jest.mock("axios");
 
 describe("retrieveTicker test", () => {
   let retrieveBinanceTicker: RetrieveBinanceTicker;
-  const mockedAxios = axios as jest.Mocked<typeof axios>;
+  const mockedAxios: jest.Mocked<AxiosStatic> = axios as jest.Mocked<typeof axios>;
 
   beforeEach(() => {
     retrieveBinanceTicker = new RetrieveBinanceTicker("");

@@ -14,5 +14,6 @@ module.exports = {
   extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   rules: {
     "no-console": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
   },
 };
