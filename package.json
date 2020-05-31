@@ -5,13 +5,13 @@
   "main": "index.ts",
   "scripts": {
     "test": "jest",
-    "node": "tsc && node dist/index.js",
+    "start": "ts-node-dev index.ts",
     "lint": "eslint .",
     "serve": "vue-cli-service serve"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://g ithub.com/wouternolten/nodejs-ticker.git"
+    "url": "git+https://github.com/wouternolten/nodejs-ticker.git"
   },
   "keywords": [
     "ticker",
@@ -50,6 +50,7 @@
     "sass": "^1.26.3",
     "sass-loader": "^8.0.2",
     "ts-jest": "^25.5.1",
+    "ts-node-dev": "^1.0.0-pre.44",
     "tslint": "^6.1.2",
     "typescript": "^3.8.3",
     "typescript-eslint-parser": "^22.0.0"
