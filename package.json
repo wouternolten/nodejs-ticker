@@ -6,8 +6,7 @@
   "scripts": {
     "test": "jest",
     "start": "ts-node-dev index.ts",
-    "lint": "eslint .",
-    "serve": "vue-cli-service serve"
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",

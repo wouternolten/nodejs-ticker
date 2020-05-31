@@ -1,12 +1,10 @@
-import app from "./src/App";
-import { config } from "dotenv";
-import { resolve } from "path";
-
+import dotenv from "dotenv";
+dotenv.config();
 const port: string = process.env.PORT || "3000";
 
-app.listen(port, (err: Error) => {
-  config({ path: resolve(__dirname, "../.env") });
+import app from "./src/App";
 
+app.listen(port, (err: Error) => {
   if (err) {
     return console.log(err);
   }
