@@ -1,8 +1,8 @@
-import { ICoin } from "./ICoin";
+import express from 'express';
 
 export interface ICoinController {
-  get(): Promise<ICoin[]>;
-  store(request: Request): Promise<ICoin>;
-  put(id: number, coin: ICoin): Promise<void>;
-  delete(id: number): Promise<void>;
+  get(response: express.Response): Promise<express.Response>;
+  store(request: express.Request, response: express.Response): Promise<express.Response>;
+  put(request: express.Request, response: express.Response): Promise<express.Response>;
+  delete(request: express.Request, response: express.Response):  Promise<express.Response>;
 }

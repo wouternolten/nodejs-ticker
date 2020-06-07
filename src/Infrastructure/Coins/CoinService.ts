@@ -2,6 +2,8 @@ import { ICoinService } from "../../Domain/Coins/ICoinService";
 import { ICoinRepository } from "../../Domain/Coins/ICoinRepository";
 import { injectable, inject } from "inversify";
 import { TYPES } from "../../../types/inversify/types";
+import {ICoin} from "@/Domain/Coins/ICoin";
+import "reflect-metadata";
 
 @injectable()
 export class CoinService implements ICoinService {
@@ -11,7 +13,7 @@ export class CoinService implements ICoinService {
     this.repository = repository;
   }
 
-  getMessage(message: string): string {
-    return message + " service " + this.repository.getMessage(message);
+  retrieveAllCoins(): Promise<ICoin[]> {
+    return this.repository.retrieveAllCoins();
   }
 }

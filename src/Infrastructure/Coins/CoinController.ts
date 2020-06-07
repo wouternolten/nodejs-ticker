@@ -1,9 +1,11 @@
 import { ICoinController } from "../../Domain/Coins/ICoinController";
 import { ICoin } from "../../Domain/Coins/ICoin";
-import * as core from "express-serve-static-core";
 import { injectable, inject } from "inversify";
 import { TYPES } from "../../../types/inversify/types";
 import { ICoinService } from "../../Domain/Coins/ICoinService";
+import express from 'express';
+import {INTERNAL_SERVER_ERROR, NOT_IMPLEMENTED, OK} from "http-status-codes";
+import "reflect-metadata";
 
 @injectable()
 export class CoinController implements ICoinController {
@@ -13,16 +15,27 @@ export class CoinController implements ICoinController {
     this.coinService = coinService;
   }
 
-  get(): Promise<ICoin[]> {
-    throw new Error("Controller" + this.coinService.getMessage(""));
+  async get(response: express.Response): Promise<express.Response> {
+    try {
+      const coins: ICoin[] = await this.coinService.retrieveAllCoins();
+
+      return response.status(OK).json(coins);
+    } catch(error) {
+      console.log(error);
+      return response.status(INTERNAL_SERVER_ERROR).send('Error while retrieving coins. Please check logs.');
+    }
   }
-  store(request: core.Request<core.ParamsDictionary>): Promise<ICoin> {
-    throw new Error("Method not implemented.");
+
+  delete(request: express.Request, response: express.Response): Promise<express.Response> {
+    return Promise.resolve(response.status(NOT_IMPLEMENTED));
   }
-  put(id: number, coin: ICoin): Promise<void> {
-    throw new Error("Method not implemented.");
+
+  put(request: express.Request, response: express.Response): Promise<express.Response> {
+    return Promise.resolve(response.status(NOT_IMPLEMENTED));
   }
-  delete(id: number): Promise<void> {
-    throw new Error("Method not implemented.");
+
+  store(request: express.Request, response: express.Response): Promise<express.Response> {
+    return Promise.resolve(response.status(NOT_IMPLEMENTED));
   }
+
 }

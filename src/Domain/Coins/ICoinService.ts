@@ -1,3 +1,5 @@
+import {ICoin} from "@/Domain/Coins/ICoin";
+
 export interface ICoinService {
-  getMessage(message: string): string;
+  retrieveAllCoins(): Promise<ICoin[]>;
 }
