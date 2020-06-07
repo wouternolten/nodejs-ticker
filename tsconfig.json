@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "module": "commonjs",
     "esModuleInterop": true,
     "target": "es6",
@@ -7,9 +9,9 @@
     "sourceMap": true,
     "strict": true,
     "outDir": "dist",
-    "lib": ["es2015", "esnext", "dom", "dom.iterable", "scripthost"],
+    "lib": ["es6", "es2015", "esnext", "dom", "dom.iterable", "scripthost"],
     "baseUrl": ".",
-    "types": ["jest", "node"],
+    "types": ["jest", "node", "reflect-metadata"],
     "paths": {
       "@/*": ["src/*"]
     }

@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import { BaseRouter } from "../etc/routes/BaseRouter";
-import { createConnection } from "../lib/database/MySql/createMySqlConnection";
 
 class App {
   public express: express.Express;
