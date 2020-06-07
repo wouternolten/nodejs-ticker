@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IDatabaseConnection } from "../IDatabaseConnection";
 import mysql2 from "mysql2";
 import { injectable } from "inversify";
@@ -18,12 +19,24 @@ export class MySqlDatabaseConnection implements IDatabaseConnection {
     this.connection = mysql2.createConnection(config);
   }
 
-  commit(options: any): void {
-    return this.connection.commit(options);
+  commit(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.connection.commit((error) => {
+        if(error) reject(error);
+
+        return resolve();
+      })
+    });
   }
 
-  beginTransaction(options: any): void {
-    return this.connection.beginTransaction(options);
+  beginTransaction(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.connection.beginTransaction((error) => {
+        if(error) reject(error);
+
+        return resolve();
+      })
+    });
   }
 
   async query(queryString: string): Promise<any> {
@@ -36,11 +49,26 @@ export class MySqlDatabaseConnection implements IDatabaseConnection {
     });
   }
 
-  close(): void {
-    throw new Error("Method not implemented.");
+  async execute(queryString: string, parameters: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.connection.execute(queryString, parameters, (error, result) => {
+        if (error) reject(error);
+
+        console.log(result);
+        return resolve(result);
+      });
+    });
   }
 
-  rollback(): void {
-    throw new Error("Method not implemented.");
+  close(): void{
+    this.connection.destroy();
+  }
+
+  rollback(): Promise<void> {
+    return new Promise((resolve) => {
+      this.connection.rollback(() => {
+        return resolve();
+      })
+    });
   }
 }
