@@ -14,7 +14,8 @@
     "types": ["jest", "node", "reflect-metadata"],
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "resolveJsonModule": true
   },
   "include": [
     "index.ts",

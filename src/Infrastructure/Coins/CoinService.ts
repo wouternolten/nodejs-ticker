@@ -16,4 +16,8 @@ export class CoinService implements ICoinService {
   retrieveAllCoins(): Promise<ICoin[]> {
     return this.repository.retrieveAllCoins();
   }
+
+  storeCoin(coin: ICoin): Promise<void> {
+    return this.repository.storeCoin(coin);
+  }
 }

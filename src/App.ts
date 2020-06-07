@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { BaseRouter } from "../etc/routes/BaseRouter";
+import bodyParser from 'body-parser';
 
 class App {
   public express: express.Express;
@@ -15,7 +16,11 @@ class App {
 
     BaseRouter.mountRoutes(router);
 
-    this.express.use(cors(this.getCorsOptions())).use("/", router);
+    this.express
+      .use(bodyParser.urlencoded({ extended: true }))
+      .use(express.json())
+      .use(cors(this.getCorsOptions()))
+      .use("/", router);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

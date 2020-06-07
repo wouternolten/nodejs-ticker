@@ -51,10 +51,9 @@ export class MySqlDatabaseConnection implements IDatabaseConnection {
 
   async execute(queryString: string, parameters: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.connection.execute(queryString, parameters, (error, result) => {
+      this.connection.execute({ sql: queryString, namedPlaceholders: true } as mysql2.QueryOptions, parameters, (error, result) => {
         if (error) reject(error);
 
-        console.log(result);
         return resolve(result);
       });
     });

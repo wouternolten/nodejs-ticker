@@ -8,4 +8,5 @@ export function buildRoutes(router: core.Router): void {
   const coinController = container.get<CoinController>(TYPES.CoinController);
 
   router.get("/coins", (_, res: express.Response) => coinController.get(res));
+  router.post("/coins", (req, res: express.Response) => coinController.store(req, res));
 }

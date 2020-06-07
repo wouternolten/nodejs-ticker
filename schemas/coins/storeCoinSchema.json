@@ -1,0 +1,23 @@
+{
+  "title": "StoreCoinSchema",
+  "type": "object",
+  "properties": {
+    "symbol": {
+      "description": "Symbol name. Only uppercase letters allowed.",
+      "type": "string",
+      "minlength": 1,
+      "maxlength": 10,
+      "pattern": "[A-Z]"
+    },
+    "amount": {
+      "description": "Amount of coins stored.",
+      "type": "number",
+      "min": "0"
+    }
+  },
+  "required": [
+    "symbol",
+    "amount"
+  ],
+  "additionalProperties": "false"
+}

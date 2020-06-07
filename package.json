@@ -28,11 +28,14 @@
   "dependencies": {
     "@types/glob": "^7.1.2",
     "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
     "core-js": "^3.6.4",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "inversify": "^5.0.1",
     "jest": "^26.0.1",
+    "jsonschema": "^1.2.6",
+    "moment": "^2.26.0",
     "mysql2": "^2.1.0"
   },
   "devDependencies": {
