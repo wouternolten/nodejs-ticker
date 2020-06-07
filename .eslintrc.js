@@ -16,4 +16,15 @@ module.exports = {
     "no-console": "off",
     "@typescript-eslint/interface-name-prefix": "off",
   },
+  overrides: [
+    {
+      files: [
+        "**/*.spec.ts"
+      ],
+      plugins: ["jest"],
+      rules: {
+        "@typescript-eslint/no-explicit-any": "off"
+      }
+    }
+  ],
 };
