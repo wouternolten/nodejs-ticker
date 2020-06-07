@@ -1,8 +1,7 @@
 import express from "express";
 import cors from "cors";
-import tickerRoute from "../etc/routes/tickerRoute";
-import symbolsRoute from "../etc/routes/symbolsRoute";
-import usdeurRoute from "../etc/routes/ExchangeRates/usdeur";
+import { BaseRouter } from "../etc/routes/BaseRouter";
+import { createConnection } from "../lib/database/MySql/createMySqlConnection";
 
 class App {
   public express: express.Express;
@@ -15,13 +14,9 @@ class App {
   private mountRoutes(): void {
     const router = express.Router();
 
-    tickerRoute(router);
-    symbolsRoute(router);
-    usdeurRoute(router);
+    BaseRouter.mountRoutes(router);
 
-    this.express.use(cors(this.getCorsOptions()));
-    this.express.options(this.getCorsOptions(), cors());
-    this.express.use("/", router);
+    this.express.use(cors(this.getCorsOptions())).use("/", router);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -32,7 +27,7 @@ class App {
         req: express.Request,
         callback: (err: Error | null, allow?: boolean) => void
       ): void => {
-        if (whiteList.indexOf(req.toString()) !== -1) {
+        if (req === undefined || whiteList.indexOf(req.toString()) !== -1) {
           return callback(null, true);
         }
 
