@@ -7,7 +7,7 @@
       "type": "string",
       "minlength": 1,
       "maxlength": 10,
-      "pattern": "[A-Z]"
+      "pattern": "^[A-Z]+$"
     },
     "amount": {
       "description": "Amount of coins stored.",

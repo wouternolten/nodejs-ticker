@@ -94,4 +94,33 @@ describe('CoinRepository test suite', () => {
       expect(mySqlConnection.rollback).toHaveBeenCalled();
     });
   });
+
+  describe('deleteCoin', () => {
+    it('Should call delete a coin correctly when no errors occur', () => {
+      expect.assertions(3);
+
+      return coinRepository
+        .deleteCoin('BTC')
+        .then(() => {
+          expect(mySqlConnection.beginTransaction).toHaveBeenCalled();
+          expect(mySqlConnection.commit).toHaveBeenCalled();
+          expect(mySqlConnection.execute).toHaveBeenCalled();
+        })
+    });
+
+    it('Should rollback and throw an error when the database throws an error', async () => {
+      expect.assertions(3);
+
+      mySqlConnection.commit.mockRejectedValue('Yo database is broken');
+
+      try {
+        await coinRepository.deleteCoin('BTC');
+      } catch(error) {
+        expect(error).toBeDefined();
+      }
+
+      expect(mySqlConnection.beginTransaction).toHaveBeenCalled();
+      expect(mySqlConnection.rollback).toHaveBeenCalled();
+    });
+  })
 });

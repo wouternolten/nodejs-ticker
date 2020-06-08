@@ -1,17 +1,27 @@
-import {CoinController} from "./CoinController";
-import {ICoin} from "../../Domain/Coins/ICoin";
 /* tslint:disable:no-var-requires*/
 /* eslint-disable @typescript-eslint/no-var-requires */
+import {CoinController} from "./CoinController";
+import {ICoin} from "../../Domain/Coins/ICoin";
 const validate = require("../../../lib/utils/validate");
 import express from "express";
+import {BAD_REQUEST, NO_CONTENT} from "http-status-codes";
+
+function checkIfCallsAreEqual(actualCalls: any, expectedCalls: any): void {
+  return expect(JSON.stringify(actualCalls)).toEqual(JSON.stringify(expectedCalls));
+}
 
 describe('CoinController test suite', () => {
   let coinController: CoinController;
   let coinService: any;
+  let response: any;
 
   beforeEach(() => {
-    coinService = { retrieveAllCoins: jest.fn(), storeCoin: jest.fn() };
+    coinService = { retrieveAllCoins: jest.fn(), storeCoin: jest.fn(), deleteCoin: jest.fn() };
     coinController = new CoinController(coinService);
+    response = {};
+    response.status = jest.fn().mockReturnValue(response);
+    response.json = jest.fn().mockReturnValue(response);
+    response.send = jest.fn().mockReturnValue(response);
   });
 
   describe('get', () => {
@@ -20,11 +30,6 @@ describe('CoinController test suite', () => {
         { symbol: 'BTC', amount: 1 },
         { symbol: 'ETH', amount: 2 },
       ];
-
-      const response: any = {};
-
-      response.status = jest.fn().mockReturnValue(response);
-      response.json = jest.fn().mockReturnValue(response);
 
       coinService.retrieveAllCoins.mockReturnValue(Promise.resolve(coins));
 
@@ -38,11 +43,6 @@ describe('CoinController test suite', () => {
 
     it('Should return a status of 500 with an error message', async () => {
       coinService.retrieveAllCoins.mockReturnValue(Promise.reject('ERROR'));
-
-      const response: any = {};
-
-      response.status = jest.fn().mockReturnValue(response);
-      response.send = jest.fn().mockReturnValue(response);
 
       expect.assertions(2);
 
@@ -62,17 +62,12 @@ describe('CoinController test suite', () => {
         }
       } as express.Request;
 
-      const response: any = {};
-
-      response.status = jest.fn().mockReturnValue(response);
-      response.send = jest.fn().mockReturnValue(response);
-
       validate.validate = jest.fn(() => { throw new Error('Bad request'); });
       expect.assertions(3);
 
       coinController.store(invalidCoin, response);
 
-      expect(JSON.stringify(validate.validate.mock.calls[0][0])).toEqual(JSON.stringify(invalidCoin));
+      checkIfCallsAreEqual(validate.validate.mock.calls[0][0], invalidCoin);
       expect(response.status).toHaveBeenCalledWith(400);
       expect(response.send.mock.calls[0][0]).toContain('Bad request');
     });
@@ -85,10 +80,6 @@ describe('CoinController test suite', () => {
         }
       } as express.Request;
 
-      const response: any = {};
-
-      response.status = jest.fn().mockReturnValue(response);
-      response.send = jest.fn().mockReturnValue(response);
       expect.assertions(2);
 
       coinService.storeCoin.mockReturnValue(Promise.resolve());
@@ -98,6 +89,43 @@ describe('CoinController test suite', () => {
           expect(response.status).toHaveBeenCalledWith(201);
           expect(coinService.storeCoin).toHaveBeenCalledWith(validCoin.body);
       });
-    })
-  })
-})
+    });
+  });
+
+  describe('delete', () => {
+    it('Should return a bad request for an invalid request', () => {
+      const invalidRequest = {
+        body: '1NVAL1D'
+      } as express.Request;
+
+      validate.validate = jest.fn(() => { throw new Error('Bad request'); });
+      expect.assertions(4);
+
+      coinController.delete(invalidRequest, response);
+
+      expect(validate.validate).toBeCalled();
+      checkIfCallsAreEqual(validate.validate.mock.calls[0][0], invalidRequest);
+      expect(response.status).toHaveBeenCalledWith(BAD_REQUEST);
+      expect(response.send.mock.calls[0][0]).toContain('Bad request');
+    });
+
+    it('Should return a status of NO CONTENT when a coin is successfully deleted', () => {
+      const validRequest = {
+        body: {
+          symbol: 'BTC'
+        }
+      } as express.Request;
+
+      expect.assertions(2);
+
+      coinService.deleteCoin.mockReturnValue(Promise.resolve());
+
+      return coinController
+        .delete(validRequest, response)
+        .then(() => {
+          expect(response.status).toHaveBeenCalledWith(NO_CONTENT);
+          expect(response.send).toHaveBeenCalled();
+        })
+    });
+  });
+});

@@ -1,5 +1,5 @@
-import { ICoinService } from "../../Domain/Coins/ICoinService";
-import { ICoinRepository } from "../../Domain/Coins/ICoinRepository";
+import { ICoinService } from "./ICoinService";
+import { ICoinRepository } from "./ICoinRepository";
 import { injectable, inject } from "inversify";
 import { TYPES } from "../../../types/inversify/types";
 import {ICoin} from "@/Domain/Coins/ICoin";
@@ -19,5 +19,9 @@ export class CoinService implements ICoinService {
 
   storeCoin(coin: ICoin): Promise<void> {
     return this.repository.storeCoin(coin);
+  }
+
+  deleteCoin(symbolName: string): Promise<void> {
+    return this.repository.deleteCoin(symbolName);
   }
 }
