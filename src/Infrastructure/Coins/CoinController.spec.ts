@@ -72,6 +72,25 @@ describe('CoinController test suite', () => {
       expect(response.send.mock.calls[0][0]).toContain('Bad request');
     });
 
+    it('Should return a 500 when the service throws an error', () => {
+      const validCoin: any = {
+        body: {
+          amount: 3,
+          symbol: 'BTC'
+        }
+      } as express.Request;
+
+      expect.assertions(2);
+
+      coinService.storeCoin.mockReturnValue(Promise.reject());
+
+      return coinController.store(validCoin, response)
+        .then(() => {
+          expect(response.status).toHaveBeenCalledWith(500);
+          expect(response.send).toHaveBeenCalled();
+        });
+    });
+
     it('Should return a 201 when coin is succesfully stored', () => {
       const validCoin: any = {
         body: {
@@ -107,6 +126,24 @@ describe('CoinController test suite', () => {
       checkIfCallsAreEqual(validate.validate.mock.calls[0][0], invalidRequest);
       expect(response.status).toHaveBeenCalledWith(BAD_REQUEST);
       expect(response.send.mock.calls[0][0]).toContain('Bad request');
+    });
+
+    it('Should return a 500 when the service throws an error', () => {
+      const validCoin: any = {
+        body: {
+          symbol: 'BTC'
+        }
+      } as express.Request;
+
+      expect.assertions(2);
+
+      coinService.deleteCoin.mockReturnValue(Promise.reject());
+
+      return coinController.delete(validCoin, response)
+        .then(() => {
+          expect(response.status).toHaveBeenCalledWith(500);
+          expect(response.send).toHaveBeenCalled();
+        });
     });
 
     it('Should return a status of NO CONTENT when a coin is successfully deleted', () => {

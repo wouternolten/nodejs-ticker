@@ -47,7 +47,8 @@ export class CoinController implements ICoinController {
     console.log(`Deleting coin ${ request.body.symbol }`);
 
     return this.coinService.deleteCoin(request.body.symbol as string)
-      .then(() => response.status(NO_CONTENT).send(`Deleted ${request.body} from coins`));
+      .then(() => response.status(NO_CONTENT).send(`Deleted ${request.body} from coins`))
+      .catch(() => response.status(INTERNAL_SERVER_ERROR).send(`Error while trying to delete coin. Please check logs.`));
   }
 
   put(request: express.Request, response: express.Response): Promise<express.Response> {
@@ -63,7 +64,8 @@ export class CoinController implements ICoinController {
     }
 
     return this.coinService.storeCoin(request.body as ICoin)
-      .then(() => response.status(CREATED).send(`Successfully stored ${request.body.symbol}`));
+      .then(() => response.status(CREATED).send(`Successfully stored ${request.body.symbol}`))
+      .catch(() => response.status(INTERNAL_SERVER_ERROR).send(`Error while trying to store coin. Please check logs.`));
   }
 
 }
