@@ -13,11 +13,13 @@ function checkIfCallsAreEqual(actualCalls: any, expectedCalls: any): void {
 describe('CoinController test suite', () => {
   let coinController: CoinController;
   let coinService: any;
+  let logger: any;
   let response: any;
 
   beforeEach(() => {
     coinService = { retrieveAllCoins: jest.fn(), storeCoin: jest.fn(), deleteCoin: jest.fn() };
-    coinController = new CoinController(coinService);
+    logger = { error: jest.fn(), log: jest.fn() };
+    coinController = new CoinController(coinService, logger);
     response = {};
     response.status = jest.fn().mockReturnValue(response);
     response.json = jest.fn().mockReturnValue(response);
@@ -82,6 +84,7 @@ describe('CoinController test suite', () => {
 
       expect.assertions(2);
 
+      validate.validate = jest.fn(() => { return; });
       coinService.storeCoin.mockReturnValue(Promise.reject());
 
       return coinController.store(validCoin, response)
@@ -101,6 +104,7 @@ describe('CoinController test suite', () => {
 
       expect.assertions(2);
 
+      validate.validate = jest.fn(() => { return; });
       coinService.storeCoin.mockReturnValue(Promise.resolve());
 
       return coinController.store(validCoin, response)
@@ -137,6 +141,7 @@ describe('CoinController test suite', () => {
 
       expect.assertions(2);
 
+      validate.validate = jest.fn(() => { return; });
       coinService.deleteCoin.mockReturnValue(Promise.reject());
 
       return coinController.delete(validCoin, response)
@@ -155,6 +160,7 @@ describe('CoinController test suite', () => {
 
       expect.assertions(2);
 
+      validate.validate = jest.fn(() => { return; });
       coinService.deleteCoin.mockReturnValue(Promise.resolve());
 
       return coinController

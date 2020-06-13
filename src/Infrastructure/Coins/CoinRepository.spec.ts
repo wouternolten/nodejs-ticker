@@ -4,6 +4,7 @@ import {ICoin} from "../../Domain/Coins/ICoin";
 describe('CoinRepository test suite', () => {
   let coinRepository: CoinRepository;
   let mySqlConnection: any;
+  let logger: any;
 
   beforeEach(() => {
     mySqlConnection = {
@@ -14,8 +15,9 @@ describe('CoinRepository test suite', () => {
       rollback: jest.fn(),
       execute: jest.fn()
     };
+    logger = { error: jest.fn(), info: jest.fn() };
 
-    coinRepository = new CoinRepository(mySqlConnection);
+    coinRepository = new CoinRepository(mySqlConnection, logger);
   })
 
   describe('retrieveAllCoins', () => {

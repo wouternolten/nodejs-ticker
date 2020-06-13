@@ -5,13 +5,19 @@ import {ICoinRepository} from "../../Domain/Coins/ICoinRepository";
 import {ICoin} from "@/Domain/Coins/ICoin";
 import "reflect-metadata";
 import moment from "moment";
+import {Logger} from "../../../lib/utils/logger";
 
 @injectable()
 export class CoinRepository implements ICoinRepository {
   private databaseConnection: IDatabaseConnection;
+  private logger: Logger;
 
-  constructor(@inject(TYPES.MySqlDatabaseConnection) databaseConnection: IDatabaseConnection) {
+  constructor(
+    @inject(TYPES.MySqlDatabaseConnection) databaseConnection: IDatabaseConnection,
+    @inject(TYPES.Logger) logger: Logger,
+  ) {
     this.databaseConnection = databaseConnection;
+    this.logger = logger;
   }
 
   retrieveAllCoins(): Promise<ICoin[]> {
@@ -22,6 +28,7 @@ export class CoinRepository implements ICoinRepository {
       .query(queryString)
       .then(this.convertToCoins.bind(this))
       .catch((error) => {
+        this.logger.error('Error retrieving all coins: ', error)
         throw error;
       })
   }
@@ -39,7 +46,7 @@ export class CoinRepository implements ICoinRepository {
     } catch (error) {
       await this.databaseConnection.rollback();
 
-      console.error('Failed to store coin: ', error);
+      this.logger.error('Failed to store coin: ', error);
 
       throw error;
     }
@@ -59,7 +66,7 @@ export class CoinRepository implements ICoinRepository {
     } catch(error) {
       await this.databaseConnection.rollback();
 
-      console.error('Failed to delete coin: ', error);
+      this.logger.error('Failed to delete coin: ', error);
 
       throw error;
     }
