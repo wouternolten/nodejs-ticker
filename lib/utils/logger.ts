@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { injectable } from "inversify";
+
+@injectable()
 export class Logger {
   public error(...logs: any): void {
     return console.error(Logger.writeLogMessage('Error: ', logs));

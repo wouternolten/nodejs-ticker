@@ -135,7 +135,7 @@ describe('CoinController test suite', () => {
     it('Should return a 500 when the service throws an error', () => {
       const validCoin: any = {
         body: {
-          symbol: 'BTC'
+          id: 3
         }
       } as express.Request;
 
@@ -154,14 +154,14 @@ describe('CoinController test suite', () => {
     it('Should return a status of NO CONTENT when a coin is successfully deleted', () => {
       const validRequest = {
         body: {
-          symbol: 'BTC'
+          id: 3
         }
       } as express.Request;
 
       expect.assertions(2);
 
       validate.validate = jest.fn(() => { return; });
-      coinService.deleteCoin.mockReturnValue(Promise.resolve());
+      coinService.deleteCoin.mockReturnValue(Promise.resolve(NO_CONTENT));
 
       return coinController
         .delete(validRequest, response)

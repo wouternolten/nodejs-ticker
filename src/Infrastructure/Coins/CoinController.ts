@@ -50,11 +50,8 @@ export class CoinController implements ICoinController {
       return Promise.resolve(response.status(BAD_REQUEST).send('Bad request.'));
     }
 
-    // TODO: BUILD LOGGER
-    this.logger.log(`Deleting coin ${ request.body.symbol }`);
-
-    return this.coinService.deleteCoin(request.body.symbol as string)
-      .then(() => response.status(NO_CONTENT).send(`Deleted ${request.body} from coins`))
+    return this.coinService.deleteCoin(request.body.id as number)
+      .then((responseStatus) => response.status(responseStatus).send(`Deleted ${request.body} from coins`))
       .catch(() => response.status(INTERNAL_SERVER_ERROR).send(`Error while trying to delete coin. Please check logs.`));
   }
 
@@ -71,7 +68,7 @@ export class CoinController implements ICoinController {
     }
 
     return this.coinService.storeCoin(request.body as ICoin)
-      .then(() => response.status(CREATED).send(`Successfully stored ${request.body.symbol}`))
+      .then((storedCoin: ICoin) => response.status(CREATED).json(storedCoin))
       .catch(() => response.status(INTERNAL_SERVER_ERROR).send(`Error while trying to store coin. Please check logs.`));
   }
 

@@ -5,5 +5,5 @@ export interface IDatabaseConnection {
   query(queryString: string): Promise<any>;
   close(): void;
   rollback(): Promise<void>;
-  execute(queryString: string, parameters: any): Promise<void>;
+  execute(queryString: string, parameters: any): Promise<any>;
 }

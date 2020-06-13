@@ -2,16 +2,14 @@
   "title": "DeleteCoinSchema",
   "type": "object",
   "properties": {
-    "symbol": {
-      "description": "Symbol name. Only uppercase letters allowed.",
-      "type": "string",
-      "minlength": 1,
-      "maxlength": 10,
-      "pattern": "^[A-Z]+$"
+    "id": {
+      "description": "Id of symbol name.",
+      "type": "integer",
+      "min": 1
     }
   },
   "required": [
-    "symbol"
+    "id"
   ],
   "additionalProperties": "false"
 }

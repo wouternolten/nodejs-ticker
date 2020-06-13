@@ -1,5 +1,6 @@
 import {CoinRepository} from "./CoinRepository";
 import {ICoin} from "../../Domain/Coins/ICoin";
+import {NO_CONTENT, NOT_FOUND} from "http-status-codes";
 
 describe('CoinRepository test suite', () => {
   let coinRepository: CoinRepository;
@@ -13,7 +14,7 @@ describe('CoinRepository test suite', () => {
       close: jest.fn(),
       beginTransaction: jest.fn(),
       rollback: jest.fn(),
-      execute: jest.fn()
+      execute: jest.fn(() => ({ affectedRows: 1 }))
     };
     logger = { error: jest.fn(), info: jest.fn() };
 
@@ -102,12 +103,34 @@ describe('CoinRepository test suite', () => {
       expect.assertions(3);
 
       return coinRepository
-        .deleteCoin('BTC')
+        .deleteCoin(1)
         .then(() => {
           expect(mySqlConnection.beginTransaction).toHaveBeenCalled();
           expect(mySqlConnection.commit).toHaveBeenCalled();
           expect(mySqlConnection.execute).toHaveBeenCalled();
         })
+    });
+
+    it('Should return NO CONTENT when a delete request has found database rows', () => {
+      expect.assertions(1);
+
+      return coinRepository
+        .deleteCoin(1)
+        .then((result) => {
+          expect(result).toEqual(NO_CONTENT);
+        });
+    });
+
+    it('Should return NOT FOUND when a delete request has not found any database rows', () => {
+      expect.assertions(1);
+
+      mySqlConnection.execute = jest.fn(() => ({ affectedRows: 0 }));
+
+      return coinRepository
+        .deleteCoin(1)
+        .then((result) => {
+          expect(result).toEqual(NOT_FOUND);
+        });
     });
 
     it('Should rollback and throw an error when the database throws an error', async () => {
@@ -116,7 +139,7 @@ describe('CoinRepository test suite', () => {
       mySqlConnection.commit.mockRejectedValue('Yo database is broken');
 
       try {
-        await coinRepository.deleteCoin('BTC');
+        await coinRepository.deleteCoin(1);
       } catch(error) {
         expect(error).toBeDefined();
       }

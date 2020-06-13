@@ -17,11 +17,11 @@ export class CoinService implements ICoinService {
     return this.repository.retrieveAllCoins();
   }
 
-  storeCoin(coin: ICoin): Promise<void> {
+  storeCoin(coin: ICoin): Promise<ICoin> {
     return this.repository.storeCoin(coin);
   }
 
-  deleteCoin(symbolName: string): Promise<void> {
-    return this.repository.deleteCoin(symbolName);
+  deleteCoin(coinId: number): Promise<number> {
+    return this.repository.deleteCoin(coinId);
   }
 }

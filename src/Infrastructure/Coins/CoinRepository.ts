@@ -6,6 +6,7 @@ import {ICoin} from "@/Domain/Coins/ICoin";
 import "reflect-metadata";
 import moment from "moment";
 import {Logger} from "../../../lib/utils/logger";
+import {NO_CONTENT, NOT_FOUND} from "http-status-codes";
 
 @injectable()
 export class CoinRepository implements ICoinRepository {
@@ -21,7 +22,7 @@ export class CoinRepository implements ICoinRepository {
   }
 
   retrieveAllCoins(): Promise<ICoin[]> {
-    const queryString = `SELECT symbol, amount
+    const queryString = `SELECT id, symbol, amount
                          FROM ticker.tic_coins`;
 
     return this.databaseConnection
@@ -33,7 +34,7 @@ export class CoinRepository implements ICoinRepository {
       })
   }
 
-  async storeCoin(coin: ICoin): Promise<void> {
+  async storeCoin(coin: ICoin): Promise<ICoin> {
     const query = `INSERT INTO ticker.tic_coins (symbol, amount, created_at, updated_at)
                    VALUES (:symbol, :amount, :now, :now);`
 
@@ -41,8 +42,13 @@ export class CoinRepository implements ICoinRepository {
 
     try {
       await this.databaseConnection.beginTransaction();
-      await this.databaseConnection.execute(query, {...coin, now});
+      const newCoin: ICoin = {...coin};
+      const result = await this.databaseConnection.execute(query, {...newCoin, now});
       await this.databaseConnection.commit();
+
+      this.logger.info({...newCoin, id: result.insertId});
+
+      return {...newCoin, id: result.insertId} as ICoin;
     } catch (error) {
       await this.databaseConnection.rollback();
 
@@ -50,19 +56,23 @@ export class CoinRepository implements ICoinRepository {
 
       throw error;
     }
-
-    return Promise.resolve();
   }
 
-  async deleteCoin(symbolName: string): Promise<void> {
+  async deleteCoin(coinId: number): Promise<number> {
     const query = `DELETE
                    FROM ticker.tic_coins tic
-                   WHERE tic.symbol = :symbolName`;
+                   WHERE tic.id = :coinId`;
 
     try {
       await this.databaseConnection.beginTransaction();
-      await this.databaseConnection.execute(query, {symbolName});
+      const { affectedRows } = await this.databaseConnection.execute(query, { coinId });
       await this.databaseConnection.commit();
+
+      if(affectedRows > 0) {
+        return Promise.resolve(NO_CONTENT);
+      } else {
+        return Promise.resolve(NOT_FOUND);
+      }
     } catch(error) {
       await this.databaseConnection.rollback();
 
@@ -70,8 +80,6 @@ export class CoinRepository implements ICoinRepository {
 
       throw error;
     }
-
-    return Promise.resolve();
   }
 
   private convertToCoins(databaseResult: { symbol: string; amount: string }[]): ICoin[] {
