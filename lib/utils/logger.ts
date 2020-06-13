@@ -8,15 +8,15 @@ export class Logger {
   }
 
   public warn(...logs: any): void {
-    return console.warn(Logger.writeLogMessage('Error: ', logs));
+    return console.warn(Logger.writeLogMessage('Warn: ', logs));
   }
 
   public info(...logs: any): void {
-    return console.info(Logger.writeLogMessage('Error: ', logs));
+    return console.info(Logger.writeLogMessage('Info: ', logs));
   }
 
   public log(...logs: any): void {
-    return console.log(Logger.writeLogMessage('Error: ', logs));
+    return console.log(Logger.writeLogMessage('Log: ', logs));
   }
 
   private static writeLogMessage(prefix: string, logs: any[]): string {

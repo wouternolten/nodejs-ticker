@@ -55,15 +55,11 @@ export class CoinController implements ICoinController {
       .catch(() => response.status(INTERNAL_SERVER_ERROR).send(`Error while trying to delete coin. Please check logs.`));
   }
 
-  put(request: express.Request, response: express.Response): Promise<express.Response> {
-    return Promise.resolve(response.status(NOT_IMPLEMENTED));
-  }
-
   store(request: express.Request, response: express.Response): Promise<express.Response> {
     try {
       validate(request, storeCoinSchema);
     } catch (error) {
-      this.logger.error(error);
+      this.logger.error('Bad request for POST', error);
       return Promise.resolve(response.status(BAD_REQUEST).send('Bad request.'));
     }
 

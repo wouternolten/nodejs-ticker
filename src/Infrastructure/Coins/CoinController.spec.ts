@@ -17,7 +17,7 @@ describe('CoinController test suite', () => {
   let response: any;
 
   beforeEach(() => {
-    coinService = { retrieveAllCoins: jest.fn(), storeCoin: jest.fn(), deleteCoin: jest.fn() };
+    coinService = { retrieveAllCoins: jest.fn(), storeCoin: jest.fn(), deleteCoin: jest.fn(), changeCoin: jest.fn() };
     logger = { error: jest.fn(), log: jest.fn() };
     coinController = new CoinController(coinService, logger);
     response = {};

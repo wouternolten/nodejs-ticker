@@ -35,8 +35,9 @@ export class CoinRepository implements ICoinRepository {
   }
 
   async storeCoin(coin: ICoin): Promise<ICoin> {
-    const query = `INSERT INTO ticker.tic_coins (symbol, amount, created_at, updated_at)
-                   VALUES (:symbol, :amount, :now, :now);`
+    const query = `INSERT INTO ticker.tic_coins (${coin.id && 'id, '}symbol, amount, created_at, updated_at)
+                   VALUES (${coin.id && ':id, '}:symbol, :amount, :now, :now)
+                   ON DUPLICATE KEY UPDATE symbol = :symbol, amount = :amount, updated_at = :now;`;
 
     const now = moment().format('YYYY-MM-DD HH:mm:ss');
 

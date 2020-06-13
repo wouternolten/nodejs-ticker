@@ -2,6 +2,11 @@
   "title": "StoreCoinSchema",
   "type": "object",
   "properties": {
+    "id": {
+      "description": "Symbol id",
+      "type": "integer",
+      "min": 1
+    },
     "symbol": {
       "description": "Symbol name. Only uppercase letters allowed.",
       "type": "string",
