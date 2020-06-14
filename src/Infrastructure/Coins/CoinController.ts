@@ -63,6 +63,8 @@ export class CoinController implements ICoinController {
       return Promise.resolve(response.status(BAD_REQUEST).send('Bad request.'));
     }
 
+    this.logger.info('Storing coin', request.body);
+
     return this.coinService.storeCoin(request.body as ICoin)
       .then((storedCoin: ICoin) => response.status(CREATED).json(storedCoin))
       .catch(() => response.status(INTERNAL_SERVER_ERROR).send(`Error while trying to store coin. Please check logs.`));

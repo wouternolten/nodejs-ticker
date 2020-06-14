@@ -25,13 +25,13 @@ class App {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private getCorsOptions(): any {
-    const whiteList = process.env.WHITELIST ? process.env.WHITELIST.split(",") : "";
+    const allowList = process.env.ALLOWLIST ? process.env.ALLOWLIST.split(",") : "";
     return {
       origin: (
         req: express.Request,
         callback: (err: Error | null, allow?: boolean) => void
       ): void => {
-        if (req === undefined || whiteList.indexOf(req.toString()) !== -1) {
+        if (req === undefined || allowList.indexOf(req.toString()) !== -1) {
           return callback(null, true);
         }
 
