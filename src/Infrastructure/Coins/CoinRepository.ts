@@ -84,8 +84,9 @@ export class CoinRepository implements ICoinRepository {
     }
   }
 
-  private convertToCoins(databaseResult: { symbol: string; amount: string }[]): ICoin[] {
-    return databaseResult.map((result: { symbol: string; amount: string }) => ({
+  private convertToCoins(databaseResult: { id: string; symbol: string; amount: string }[]): ICoin[] {
+    return databaseResult.map((result: { id: string; symbol: string; amount: string }) => ({
+      id: parseInt(result.id, 10),
       symbol: result.symbol,
       amount: parseFloat(result.amount),
     }));
