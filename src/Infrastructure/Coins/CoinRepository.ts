@@ -38,8 +38,6 @@ export class CoinRepository implements ICoinRepository {
     const query = `INSERT INTO ticker.tic_coins (${coin.id ? 'id, ' : ''}symbol, amount, created_at, updated_at)
                    VALUES (${coin.id ? ':id, ' : ''}:symbol, :amount, :now, :now)
                    ON DUPLICATE KEY UPDATE symbol = :symbol, amount = :amount, updated_at = :now;`;
-
-    this.logger.info(query);
     const now = moment().format('YYYY-MM-DD HH:mm:ss');
 
     try {
@@ -47,8 +45,6 @@ export class CoinRepository implements ICoinRepository {
       const newCoin: ICoin = {...coin};
       const result = await this.databaseConnection.execute(query, {...newCoin, now});
       await this.databaseConnection.commit();
-
-      this.logger.info({...newCoin, id: result.insertId});
 
       return {...newCoin, id: result.insertId} as ICoin;
     } catch (error) {
