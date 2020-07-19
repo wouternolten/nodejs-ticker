@@ -1,4 +1,4 @@
-import { RetrieveBinanceTicker } from "./RetrieveBinanceTicker";
+import { BinanceTickerService } from "./BinanceTickerService";
 import { InvalidSymbolException } from "../../../Application/Exceptions/InvalidSymbolException";
 import axios, { AxiosStatic } from "axios";
 import { Ticker } from "../../../Application/Ticker/Ticker";
@@ -9,11 +9,11 @@ import { UrlNotFoundException } from "../../../Application/Exceptions/UrlNotFoun
 jest.mock("axios");
 
 describe("retrieveTicker test", () => {
-  let retrieveBinanceTicker: RetrieveBinanceTicker;
+  let retrieveBinanceTicker: BinanceTickerService;
   const mockedAxios: jest.Mocked<AxiosStatic> = axios as jest.Mocked<typeof axios>;
 
   beforeEach(() => {
-    retrieveBinanceTicker = new RetrieveBinanceTicker("");
+    retrieveBinanceTicker = new BinanceTickerService("");
   });
 
   it("Should throw an error when an invalid symbol is used", async () => {

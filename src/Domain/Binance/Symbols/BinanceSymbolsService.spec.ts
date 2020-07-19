@@ -1,15 +1,15 @@
-import { BinanceSymbols } from "./BinanceSymbols";
+import { BinanceSymbolsService } from "./BinanceSymbolsService";
 import { AxiosStatic } from "axios";
 import axios from "axios";
 
 jest.mock("axios");
 
 describe("RetrieveSymbolsTest", () => {
-  let binanceSymbols: BinanceSymbols;
+  let binanceSymbols: BinanceSymbolsService;
   const mockedAxios: jest.Mocked<AxiosStatic> = axios as jest.Mocked<typeof axios>;
 
   beforeEach(() => {
-    binanceSymbols = new BinanceSymbols();
+    binanceSymbols = new BinanceSymbolsService();
   });
 
   it("Should retrieve and map all symbols to alphabetically sorted string if Binance gives a valid response", (done) => {

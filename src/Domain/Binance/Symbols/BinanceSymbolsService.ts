@@ -2,7 +2,7 @@ import { ISymbols } from "@/Application/Symbol/ISymbols";
 import axios from "axios";
 import { IExchangeSymbol } from "@/Application/Exchange/IExchangeInfo";
 
-export class BinanceSymbols implements ISymbols {
+export class BinanceSymbolsService implements ISymbols {
   private symbols: string[] = [];
   public async retrieveAll(): Promise<string[]> {
     if(!this.symbols) {
