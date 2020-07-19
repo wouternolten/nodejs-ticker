@@ -3,11 +3,16 @@ import axios from "axios";
 import { IExchangeSymbol } from "@/Application/Exchange/IExchangeInfo";
 
 export class BinanceSymbols implements ISymbols {
+  private symbols: string[] = [];
   public async retrieveAll(): Promise<string[]> {
-    return axios
-      .get(`${process.env.BINANCE_BASE_URL}/api/v3/exchangeInfo`)
-      .then((response) => this.mapSymbolsFromResponse(response.data.symbols))
-      .then(this.sortSymbols);
+    if(!this.symbols) {
+      this.symbols = await axios
+        .get(`${process.env.BINANCE_BASE_URL}/api/v3/exchangeInfo`)
+        .then((response) => this.mapSymbolsFromResponse(response.data.symbols))
+        .then(this.sortSymbols);
+    }
+
+    return Promise.resolve(this.symbols);
   }
 
   private mapSymbolsFromResponse(binanceSymbols: IExchangeSymbol[]): Promise<string[]> {
