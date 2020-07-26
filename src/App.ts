@@ -20,6 +20,7 @@ class App {
       .use(bodyParser.urlencoded({ extended: true }))
       .use(express.json())
       .use(cors(this.getCorsOptions()))
+      .use(express.static(__dirname + '../../frontend-dist/'))
       .use("/", router);
   }
 
