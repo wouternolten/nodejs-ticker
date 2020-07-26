@@ -1,4 +1,4 @@
-import { RetrieveTickerInterface } from "../../../Application/Ticker/RetrieveTickerInterface";
+import { TickerServiceInterface } from "../../../Application/Ticker/TickerServiceInterface";
 import { Ticker } from "../../../Application/Ticker/Ticker";
 import { InvalidSymbolException } from "../../../Application/Exceptions/InvalidSymbolException";
 import axios, { AxiosResponse } from "axios";
@@ -6,7 +6,7 @@ import HttpStatus from "http-status-codes";
 import { IllegalCharacterException } from "../../../Application/Exceptions/IllegalCharacterException";
 import { UrlNotFoundException } from "../../../Application/Exceptions/UrlNotFoundException";
 
-export class RetrieveBinanceTicker implements RetrieveTickerInterface {
+export class BinanceTickerService implements TickerServiceInterface {
   private readonly INVALID_SYMBOL = -1121;
   private readonly ILLEGAL_CHARACTER = -1100;
   private tickerUrl: string;

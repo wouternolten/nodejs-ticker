@@ -1,5 +1,5 @@
 import {Ticker} from "./Ticker";
 
-export interface RetrieveTickerInterface {
+export interface TickerServiceInterface {
     retrieveTicker(symbol: string): Promise<Ticker>;
 }
