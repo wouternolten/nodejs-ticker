@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  mysql-main-database:
+    container_name: ticker-mysql-main-database
+    image: mysql:8.0.17
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_DATABASE: ticker
+    ports:
+      - 0.0.0.0:${DATABASE_PORT}:3306
+
+  mysql-integration-tests:
+    container_name: ticker-mysql-integration-tests
+    image: mysql:8.0.17
+    environment:
+      MYSQL_ROOT_PASSWORD: ${INTEGRATION_DATABASE_PASSWORD}
+      MYSQL_DATABASE: ticker
+    ports:
+      - 0.0.0.0:${INTEGRATION_DATABASE_PORT}:3306
+

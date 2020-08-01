@@ -6,10 +6,13 @@
   "scripts": {
     "build-frontend": "vue-cli-service build",
     "create_migration": "node ./database/migrate.js add migration",
+    "init-database": "docker-compose up -d mysql-main-database",
+    "init-mock-database": "docker-compose up -d mysql-integration-tests",
     "cy:open": "cypress open",
     "cypress": "start-server-and-test start-frontend http://localhost:8088 cy:open",
     "lint": "eslint .",
-    "migrate": "node ./database/migrate.js",
+    "migrate": "node ./database/migrate.js up",
+    "migrate-mock-database": "MIGRATE_INTEGRATION=true node ./database/migrate.js up",
     "start": "ts-node-dev index.ts",
     "start-frontend": "vue-cli-service serve --port 8088",
     "test": "jest"
