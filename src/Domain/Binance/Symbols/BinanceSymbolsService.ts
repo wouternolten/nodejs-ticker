@@ -5,11 +5,11 @@ import { IExchangeSymbol } from "@/Application/Exchange/IExchangeInfo";
 export class BinanceSymbolsService implements ISymbols {
   private symbols: string[] = [];
   public async retrieveAll(): Promise<string[]> {
-    if(!this.symbols) {
+    if(this.symbols.length === 0) {
       this.symbols = await axios
         .get(`${process.env.BINANCE_BASE_URL}/api/v3/exchangeInfo`)
         .then((response) => this.mapSymbolsFromResponse(response.data.symbols))
-        .then(this.sortSymbols);
+        .then((symbols) => symbols.sort());
     }
 
     return Promise.resolve(this.symbols);
@@ -19,9 +19,5 @@ export class BinanceSymbolsService implements ISymbols {
     return Promise.all(
       binanceSymbols.map(async (binanceSymbol: IExchangeSymbol) => binanceSymbol.symbol)
     );
-  }
-
-  private sortSymbols(symbols: string[]): string[] {
-    return symbols.sort();
   }
 }

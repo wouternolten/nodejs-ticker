@@ -25,17 +25,19 @@ describe('CoinRepository test suite', () => {
     it('Should map all database rows to coin objects', () => {
       const expectedCoins: ICoin[] = [
         {
+          id: 1,
           symbol: 'BTC',
           amount: 1,
         },
         {
+          id: 2,
           symbol: 'ETH',
           amount: 3.26
         }];
 
       mySqlConnection.query.mockReturnValue(Promise.resolve([
-        {symbol: 'BTC', amount: '1'},
-        {symbol: 'ETH', amount: '3.26'},
+        {id: '1', symbol: 'BTC', amount: '1'},
+        {id: '2', symbol: 'ETH', amount: '3.26'},
       ]));
 
       expect.assertions(1);

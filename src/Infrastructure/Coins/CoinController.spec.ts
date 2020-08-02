@@ -18,7 +18,7 @@ describe('CoinController test suite', () => {
 
   beforeEach(() => {
     coinService = { retrieveAllCoins: jest.fn(), storeCoin: jest.fn(), deleteCoin: jest.fn(), changeCoin: jest.fn() };
-    logger = { error: jest.fn(), log: jest.fn() };
+    logger = { error: jest.fn(), log: jest.fn(), info: jest.fn() };
     coinController = new CoinController(coinService, logger);
     response = {};
     response.status = jest.fn().mockReturnValue(response);

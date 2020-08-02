@@ -19,7 +19,9 @@ module.exports = {
   overrides: [
     {
       files: [
-        "**/*.spec.ts"
+        "**/*.spec.ts",
+        "./database/integration-tests/*.ts",
+        "./database/integration-tests/**/*.ts"
       ],
       plugins: ["jest"],
       rules: {

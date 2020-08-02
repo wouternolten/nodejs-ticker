@@ -1,22 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IDatabaseConnection } from "../IDatabaseConnection";
-import mysql2 from "mysql2";
+import { Connection, ConnectionOptions, createConnection, QueryOptions } from "mysql2";
 import { injectable } from "inversify";
+import "reflect-metadata";
 
 @injectable()
 export class MySqlDatabaseConnection implements IDatabaseConnection {
-  private connection: mysql2.Connection;
+  private connection: Connection;
 
-  constructor() {
-    const config: mysql2.ConnectionOptions = {
+  constructor(
+    password = process.env.DATABASE_PASSWORD,
+    port = process.env.DATABASE_PORT
+  ) {
+    const config: ConnectionOptions = {
       host: process.env.DATABASE_HOST || "",
       user: process.env.DATABASE_USERNAME || "",
-      password: process.env.DATABASE_PASSWORD || "",
-      port: parseInt(process.env.DATABASE_PORT || "3306", 10),
+      password: password || "",
+      port: parseInt(port || "3306", 10),
       database: process.env.DATABASE_NAME,
     };
 
-    this.connection = mysql2.createConnection(config);
+    this.connection = createConnection(config);
   }
 
   commit(): Promise<void> {
@@ -51,7 +55,7 @@ export class MySqlDatabaseConnection implements IDatabaseConnection {
 
   async execute(queryString: string, parameters: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.connection.execute({ sql: queryString, namedPlaceholders: true } as mysql2.QueryOptions, parameters, (error, result) => {
+      this.connection.execute({ sql: queryString, namedPlaceholders: true } as QueryOptions, parameters, (error, result) => {
         if (error) reject(error);
 
         return resolve(result);
