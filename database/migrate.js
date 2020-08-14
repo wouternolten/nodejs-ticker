@@ -4,8 +4,10 @@ const migration = require("mysql-migrations");
 const dotenv = require("dotenv");
 const { resolve } = require("path");
 
+console.info('Booting migrations...');
+
 dotenv.config({ path: resolve(__dirname, "../.env") });
-let password, port;
+let password;
 
 if(process.env.MIGRATE_INTEGRATION) {
   password = process.env.INTEGRATION_DATABASE_PASSWORD;
@@ -21,4 +23,10 @@ const connection = mysql2.createPool({
   database: process.env.DATABASE_NAME
 });
 
-migration.init(connection, __dirname + "/migrations");
+try {
+  migration.init(connection, __dirname + "/migrations");
+} catch(e) {
+  console.error('Error while migrating: ', e);
+} finally {
+  console.info('Done migrating.');
+}
