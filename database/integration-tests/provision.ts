@@ -6,14 +6,12 @@ import "reflect-metadata";
 import { readdir } from "fs";
 import {IDatabaseSampleData} from "./helpers/IDatabaseSampleData";
 
-const DEFAULT_DATABASE_PORT = '3306';
 const SAMPLE_DATA_LOCATION = __dirname + '/sample-data';
 
 config({ path: resolve(__dirname, "../../.env") });
 
 const connection = new MySqlDatabaseConnection(
-  process.env.INTEGRATION_DATABASE_PASSWORD,
-  process.env.INTEGRATION_DATABASE_PORT || DEFAULT_DATABASE_PORT
+  process.env.INTEGRATION_DATABASE_PASSWORD
 );
 
 const addRow = async (tableName: string, data: Record<string, ISampleDataType>): Promise<void> => {

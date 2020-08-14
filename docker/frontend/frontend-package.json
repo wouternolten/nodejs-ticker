@@ -1,0 +1,42 @@
+{
+  "name": "ticker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "scripts": {
+    "start": "vue-cli-service serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wouternolten/nodejs-ticker.git"
+  },
+  "keywords": [
+    "ticker",
+    "nodejs",
+    "crypto"
+  ],
+  "author": "Wouter Nolten",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wouternolten/nodejs-ticker/issues"
+  },
+  "homepage": "https://github.com/wouternolten/nodejs-ticker#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "vue": "^2.6.11",
+    "vue-material": "^1.0.0-beta-14",
+    "vuelidate": "^0.7.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@vue/cli-plugin-babel": "^4.3.0",
+    "@vue/cli-plugin-eslint": "^4.3.0",
+    "@vue/cli-service": "^4.3.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.0.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "http-status-codes": "^1.4.0",
+    "vue-template-compiler": "^2.6.11"
+  }
+}

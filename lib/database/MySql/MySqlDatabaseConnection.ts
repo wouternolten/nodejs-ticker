@@ -10,13 +10,11 @@ export class MySqlDatabaseConnection implements IDatabaseConnection {
 
   constructor(
     password = process.env.DATABASE_PASSWORD,
-    port = process.env.DATABASE_PORT
   ) {
     const config: ConnectionOptions = {
       host: process.env.DATABASE_HOST || "",
       user: process.env.DATABASE_USERNAME || "",
       password: password || "",
-      port: parseInt(port || "3306", 10),
       database: process.env.DATABASE_NAME,
     };
 

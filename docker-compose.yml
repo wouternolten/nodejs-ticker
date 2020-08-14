@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   mysql-main-database:
@@ -8,7 +8,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
       MYSQL_DATABASE: ticker
     ports:
-      - 0.0.0.0:${DATABASE_PORT}:3306
+      - 3306:3306
 
   mysql-integration-tests:
     container_name: ticker-mysql-integration-tests
@@ -17,5 +17,20 @@ services:
       MYSQL_ROOT_PASSWORD: ${INTEGRATION_DATABASE_PASSWORD}
       MYSQL_DATABASE: ticker
     ports:
-      - 0.0.0.0:${INTEGRATION_DATABASE_PORT}:3306
+      - 0.0.0.0:3307:3307
 
+  frontend-ticker:
+    container_name: ticker-frontend
+    build:
+      context: .
+      dockerfile: ./docker/frontend/Dockerfile
+    ports:
+      - '8080:8080'
+
+  backend-ticker:
+    container_name: ticker-backend
+    build:
+      context: .
+      dockerfile: ./docker/backend/Dockerfile
+    ports:
+      - '3000:3000'

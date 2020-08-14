@@ -9,10 +9,8 @@ let password, port;
 
 if(process.env.MIGRATE_INTEGRATION) {
   password = process.env.INTEGRATION_DATABASE_PASSWORD;
-  port = process.env.INTEGRATION_DATABASE_PORT;
 } else {
   password = process.env.DATABASE_PASSWORD;
-  port = process.env.DATABASE_PORT
 }
 
 const connection = mysql2.createPool({
@@ -20,8 +18,7 @@ const connection = mysql2.createPool({
   host: process.env.DATABASE_HOST,
   user: process.env.DATABASE_USERNAME,
   password,
-  database: process.env.DATABASE_NAME,
-  port,
+  database: process.env.DATABASE_NAME
 });
 
 migration.init(connection, __dirname + "/migrations");

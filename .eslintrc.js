@@ -11,7 +11,11 @@ module.exports = {
     node: true,
     jest: true,
   },
-  extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:cypress/recommended"
+  ],
   rules: {
     "no-console": "off",
     "@typescript-eslint/interface-name-prefix": "off",

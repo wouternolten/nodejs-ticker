@@ -14,7 +14,7 @@
     "cy:run-backend": "CYPRESS_BASE_URL=http://localhost:3000 cypress run --spec 'cypress/integration/ticker-backend/*'",
     "cy:run-frontend": "CYPRESS_BASE_URL=http://localhost:8088 cypress run --spec 'cypress/integration/ticker-frontend/*'",
     "lint": "eslint .",
-    "migrate": "node ./database/migrate.js up",
+    "migrate": "DATABASE_HOST=localhost node ./database/migrate.js up",
     "migrate-mock-database": "MIGRATE_INTEGRATION=true node ./database/migrate.js up",
     "start-backend": "ts-node-dev index.ts",
     "start-frontend": "vue-cli-service serve --port 8088",
