@@ -17,7 +17,7 @@ COPY ./tsconfig.json ./tsconfig.json
 COPY ./tslint.json ./tslint.json
 COPY ./index.ts ./index.ts
 COPY ./.env ./.env
-RUN npm install
+RUN npm install --no-progress
 
 # start app
 CMD ["npm", "start"]

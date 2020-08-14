@@ -11,7 +11,7 @@ COPY ./vue.config.js ./vue.config.js
 COPY ./babel.config.js ./babel.config.js
 COPY ./resources ./resources
 COPY ./.env ./.env
-RUN npm install
+RUN npm install --no-progress
 
 # start app
 CMD ["npm", "start"]
