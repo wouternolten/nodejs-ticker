@@ -26,6 +26,8 @@ services:
       dockerfile: ./docker/frontend/Dockerfile
     ports:
       - '8080:8080'
+    volumes:
+      - .:/app
 
   backend-ticker:
     container_name: ticker-backend
@@ -34,3 +36,5 @@ services:
       dockerfile: ./docker/backend/Dockerfile
     ports:
       - '3000:3000'
+    volumes:
+      - .:/app
