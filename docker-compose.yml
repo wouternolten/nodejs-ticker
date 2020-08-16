@@ -10,14 +10,14 @@ services:
     ports:
       - 3306:3306
 
-  mysql-integration-tests:
-    container_name: ticker-mysql-integration-tests
+  mysql-acceptance-tests:
+    container_name: ticker-mysql-acceptance-tests
     image: mysql:8.0.17
     environment:
-      MYSQL_ROOT_PASSWORD: ${INTEGRATION_DATABASE_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${ACCEPTANCE_DATABASE_PASSWORD}
       MYSQL_DATABASE: ticker
     ports:
-      - 0.0.0.0:3307:3307
+      - 3307:3306
 
   frontend-ticker:
     container_name: ticker-frontend

@@ -5,7 +5,6 @@ module.exports = {
         jest: true
     },
     extends: [
-        "plugin:cypress/recommended",
         "plugin:vue/essential",
         "eslint:recommended"
     ],

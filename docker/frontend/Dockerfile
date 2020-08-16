@@ -8,5 +8,7 @@ WORKDIR /app
 COPY ./docker/frontend/frontend-package.json ./package.json
 RUN npm install --no-progress --loglevel=error
 
+EXPOSE 8080
+
 # start app
 CMD ["npm", "run", "start-frontend"]

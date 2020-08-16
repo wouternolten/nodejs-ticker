@@ -8,5 +8,7 @@ WORKDIR /app
 COPY ./docker/backend/backend-package.json ./package.json
 RUN npm install --no-progress --loglevel=error
 
+EXPOSE 3000
+
 # start app
 CMD ["npm", "run", "start-backend"]

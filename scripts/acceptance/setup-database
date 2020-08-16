@@ -1,0 +1,6 @@
+echo -e "${CYAN}Building docker container for database..."
+docker-compose up -d --build mysql-acceptance-tests
+sleep 10
+
+echo -e "${CYAN}Starting migration."
+MIGRATE_ACCEPTANCE=true node ./database/migrate.js up
