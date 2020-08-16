@@ -37,6 +37,7 @@
     "eslint": "^7.0.0",
     "eslint-plugin-vue": "^6.2.2",
     "http-status-codes": "^1.4.0",
+    "material-design-icons-iconfont": "^5.0.1",
     "vue-template-compiler": "^2.6.11"
   }
 }
