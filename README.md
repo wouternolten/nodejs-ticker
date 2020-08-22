@@ -1,19 +1,28 @@
 # README
 
+A simple cryptocurrency ticker based on NodeJs.
+
 ## Pre-installed requisites
 
-- Mysql Database
+- Docker
 - Node v12+
 
 ## Quick startup
 
-After installing the dependencies, run this command: `npm install && npm run migrate up && npm run start`.
-This will install dependencies, migrate the data and tables to the database, then run the app.
+Use `make install` to install the development environment. This will also migrate the database.
 
-## Commands
+## Overview of the app
 
-First, use `npm install` to install dependencies.
+![Overview](docs/img/flowchart.png)
 
-Then, use `npm run migrate up` to migrate all de database tables and data. For this, you need to have a mysql database set up.
+## Testing
 
-To run the app, run `npm run start`.
+To run the entire test suite, run `make test`
+
+There are two types of tests: unit and acceptance tests.
+
+#### Unit testing
+[Jest](https://jestjs.io/) is the main framework to unit test this app. Run `make test-unit` to run the unit tests.
+
+#### Acceptance tests
+[Cypress](https://www.cypress.io/) runs the acceptance tests. Run `make test-acceptance` for the acceptance tests. 
