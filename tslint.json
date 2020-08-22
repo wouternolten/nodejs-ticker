@@ -8,6 +8,6 @@
   },
   "rulesDirectory": [],
   "linterOptions": {
-    "exclude": ["bin", "build", "config", "coverage", "node_modules", "@types"]
+    "exclude": ["bin", "build", "config", "coverage", "cypress", "node_modules", "resources", "@types"]
   }
 }

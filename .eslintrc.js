@@ -31,6 +31,15 @@ module.exports = {
       rules: {
         "@typescript-eslint/no-explicit-any": "off"
       }
+    },
+    {
+      files: [
+        "**/*.spec.js"
+      ],
+      plugins: ["cypress"],
+      rules: {
+        "@typescript-eslint/no-use-before-define": "off"
+      }
     }
   ],
 };
