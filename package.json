@@ -4,13 +4,10 @@
   "private": true,
   "description": "A NodeJS ticker interface.",
   "scripts": {
-    "create-migration": "node ./database/migrate.js add migration",
     "cy:open": "CYPRESS_BASE_URL=http://localhost:8080 cypress open",
     "cy:run-frontend": "CYPRESS_BASE_URL=http://localhost:8080 cypress run --project ./cypress/frontend",
     "cy:run-backend": "CYPRESS_BASE_URL=http://localhost:3000 cypress run --project ./cypress/backend",
     "lint": "eslint .",
-    "migrate": "DATABASE_HOST=localhost node ./database/migrate.js up",
-    "migrate-mock-database": "MIGRATE_INTEGRATION=true node ./database/migrate.js up",
     "start-backend": "ts-node-dev index.ts",
     "start-frontend": "vue-cli-service serve",
     "test": "jest"
