@@ -23,11 +23,22 @@ if (process.env.DATABASE === 'acceptance') {
 }
 
 const connection = mysql2.createPool(config);
+let directory, wording;
 
-const directory = `/../${process.env.COMMAND}`;
-const wording = process.env.COMMAND === 'migrations' ? 'migrating' : 'provisioning';
-
-console.log(process.env.COMMAND);
+switch(process.env.COMMAND) {
+  case 'migrate':
+    directory = '/../migrations';
+    wording = 'migrating';
+    break;
+  case 'provision':
+    directory = '/../provision';
+    wording = 'provisioning';
+    break;
+  default:
+    console.info('Invalid command ' + process.env.COMMAND);
+    process.exit();
+    break;
+}
 
 async function migrate () {
   return new Promise((res) => {
