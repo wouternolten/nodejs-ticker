@@ -1,6 +1,9 @@
-echo -e "${CYAN}Building docker container for database..."
+echo "${CYAN}Building docker container for database..."
 docker-compose up -d --build mysql-acceptance-tests
-sleep 10
 
-echo -e "${CYAN}Starting migration."
-MIGRATE_ACCEPTANCE=true node ./database/migrate.js up
+echo "${CYAN}Waiting for mysql to be ready...${DEFAULT}"
+while ! docker logs ticker-mysql-acceptance-tests  2>&1 | grep -q 'ready for connections.'; do sleep 2; done
+echo "${CYAN}Ready to receive your connections.${DEFAULT}"
+
+echo "${CYAN}Starting migration."
+make migrate DATABASE=acceptance
