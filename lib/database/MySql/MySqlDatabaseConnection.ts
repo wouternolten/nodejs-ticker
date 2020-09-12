@@ -16,7 +16,12 @@ export class MySqlDatabaseConnection implements IDatabaseConnection {
       user: process.env.DATABASE_USERNAME || "",
       password: password || "",
       database: process.env.DATABASE_NAME,
+      namedPlaceholders: true,
     };
+
+    if(process.env.DATABASE_PORT) {
+      config.port = parseInt(process.env.DATABASE_PORT, 10);
+    }
 
     this.connection = createConnection(config);
   }
@@ -53,7 +58,7 @@ export class MySqlDatabaseConnection implements IDatabaseConnection {
 
   async execute(queryString: string, parameters: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.connection.execute({ sql: queryString, namedPlaceholders: true } as QueryOptions, parameters, (error, result) => {
+      this.connection.execute(queryString, parameters, (error, result) => {
         if (error) reject(error);
 
         return resolve(result);

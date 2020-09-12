@@ -2,9 +2,9 @@ import dotenv from "dotenv";
 dotenv.config();
 const port: string = process.env.PORT || "3000";
 
-import app from "./src/App";
+import createApp from "./src/App";
 
-app.listen(port, (err: Error) => {
+createApp().listen(port, (err: Error) => {
   if (err) {
     return console.log(err);
   }

@@ -14,9 +14,8 @@ const config = {
 };
 
 if (process.env.DATABASE === 'acceptance') {
-  config.host = 'localhost' || process.env.ACCEPTANCE_DATABASE_HOST;
+  config.host = process.env.ACCEPTANCE_DATABASE_HOST || 'localhost';
   config.password = process.env.ACCEPTANCE_DATABASE_PASSWORD;
-  config.port = process.env.ACCEPTANCE_DATABASE_PORT;
 } else {
   config.host = process.env.DATABASE_HOST;
   config.password = process.env.DATABASE_PASSWORD;
@@ -47,7 +46,7 @@ async function migrate () {
 }
 
 migrate()
-  .then((args) => {
+  .then(() => {
     console.info('Done ' + wording);
     process.exit();
   })

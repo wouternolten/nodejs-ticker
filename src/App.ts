@@ -42,4 +42,6 @@ class App {
   }
 }
 
-export default new App().express;
+export default function createApp(): express.Express {
+  return new App().express;
+}

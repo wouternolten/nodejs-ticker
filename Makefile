@@ -17,17 +17,17 @@ create_provision: ## Create a provision SQL file. Use TABLE_NAME=<table_name> to
 	docker run --net=nodejs-ticker_default --rm --name migrations -v $(PWD):/usr/src/app -w /usr/src/app -e COMMAND=provision node:12 node ./database/scripts/database.js add migration ${TABLE_NAME}
 
 migrate: ## Migrate the database. Use DATABASE=acceptance to migrate the acceptance database.
-ifeq ($DATABASE, acceptance)
+ifeq ($(DATABASE), acceptance)
 	docker run --net=nodejs-ticker_default --rm --name migrations -v $(PWD):/usr/src/app -w /usr/src/app -e DATABASE=acceptance -e COMMAND=migrate node:12 node ./database/scripts/database.js up
 else
-	docker run --net=nodejs-ticker_default --rm --name flyway -v $(PWD):/usr/src/app -w /usr/src/app -e COMMAND=migrate node:12 node ./database/scripts/database.js up
+	docker run --net=nodejs-ticker_default --rm --name migrations -v $(PWD):/usr/src/app -w /usr/src/app -e COMMAND=migrate node:12 node ./database/scripts/database.js up
 endif
 
 provision: ## Provision the database. Use DATABASE=acceptance to provision the acceptance database.
-ifeq ($DATABASE, acceptance)
-	docker run --net=nodejs-ticker_default --rm --name migrations -v $(PWD):/usr/src/app -w /usr/src/app -e DATABASE=acceptance -e COMMAND=provision node:12 node ./database/scripts/database.js up
+ifeq ($(DATABASE), acceptance)
+	docker run --net=nodejs-ticker_default --rm --name provision -v $(PWD):/usr/src/app -w /usr/src/app -e DATABASE=acceptance -e COMMAND=provision node:12 node ./database/scripts/database.js up
 else
-	docker run --net=nodejs-ticker_default --rm --name flyway -v $(PWD):/usr/src/app -w /usr/src/app -e COMMAND=provision node:12 node ./database/scripts/database.js up
+	docker run --net=nodejs-ticker_default --rm --name provision -v $(PWD):/usr/src/app -w /usr/src/app -e COMMAND=provision node:12 node ./database/scripts/database.js up
 endif
 
 setup-acceptance-database: ## Setup the acceptance database
