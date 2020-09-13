@@ -1,5 +1,5 @@
-import {CoinRepository} from "./CoinRepository";
-import {ICoin} from "../../Domain/Coins/ICoin";
+import {CoinRepository} from "../CoinRepository";
+import {ICoin} from "../../../Domain/Coins/ICoin";
 import {NO_CONTENT, NOT_FOUND} from "http-status-codes";
 
 describe('CoinRepository test suite', () => {

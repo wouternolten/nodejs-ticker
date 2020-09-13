@@ -1,8 +1,8 @@
 /* tslint:disable:no-var-requires*/
 /* eslint-disable @typescript-eslint/no-var-requires */
-import {CoinController} from "./CoinController";
-import {ICoin} from "../../Domain/Coins/ICoin";
-const validate = require("../../../lib/utils/validate");
+import {CoinController} from "../CoinController";
+import {ICoin} from "../../../Domain/Coins/ICoin";
+const validate = require("../../../../lib/utils/validate");
 import express from "express";
 import {BAD_REQUEST, NO_CONTENT} from "http-status-codes";
 

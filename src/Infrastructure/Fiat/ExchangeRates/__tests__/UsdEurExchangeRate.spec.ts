@@ -1,4 +1,4 @@
-import { UsdEurExchangeRate } from "./UsdEurExchangeRate";
+import { UsdEurExchangeRate } from "../UsdEurExchangeRate";
 import axios, { AxiosStatic } from "axios";
 
 jest.mock("axios");

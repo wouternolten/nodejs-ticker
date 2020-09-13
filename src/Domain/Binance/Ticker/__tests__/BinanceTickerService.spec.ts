@@ -1,10 +1,10 @@
-import { BinanceTickerService } from "./BinanceTickerService";
-import { InvalidSymbolException } from "../../../Application/Exceptions/InvalidSymbolException";
+import { BinanceTickerService } from "../BinanceTickerService";
+import { InvalidSymbolException } from "../../../../Application/Exceptions/InvalidSymbolException";
 import axios, { AxiosStatic } from "axios";
-import { Ticker } from "../../../Application/Ticker/Ticker";
+import { Ticker } from "../../../../Application/Ticker/Ticker";
 import HttpStatus from "http-status-codes";
-import { IllegalCharacterException } from "../../../Application/Exceptions/IllegalCharacterException";
-import { UrlNotFoundException } from "../../../Application/Exceptions/UrlNotFoundException";
+import { IllegalCharacterException } from "../../../../Application/Exceptions/IllegalCharacterException";
+import { UrlNotFoundException } from "../../../../Application/Exceptions/UrlNotFoundException";
 
 jest.mock("axios");
 

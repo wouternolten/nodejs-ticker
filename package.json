@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "start-backend": "ts-node-dev index.ts",
     "start-frontend": "vue-cli-service serve",
-    "test": "jest"
+    "test": "jest --forceExit"
   },
   "repository": {
     "type": "git",
@@ -54,6 +54,7 @@
     "@types/jest": "^25.2.3",
     "@types/mysql2": "github:types/mysql2",
     "@types/node": "^14.0.4",
+    "@types/supertest": "^2.0.10",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "@vue/cli-plugin-babel": "^4.3.0",
@@ -63,18 +64,19 @@
     "babel-jest": "^26.0.1",
     "dotenv": "^8.2.0",
     "eslint": "^7.0.0",
-    "eslint-plugin-jest": "^23.13.1",
     "eslint-plugin-cypress": "^2.11.1",
+    "eslint-plugin-jest": "^23.13.1",
     "eslint-plugin-vue": "^6.2.2",
     "http-status-codes": "^1.4.0",
     "mysql-migrations": "^1.0.6",
     "reflect-metadata": "^0.1.13",
+    "start-server-and-test": "^1.11.2",
+    "supertest": "^4.0.2",
     "ts-jest": "^25.5.1",
     "ts-node-dev": "^1.0.0-pre.44",
     "tslint": "^6.1.2",
     "typescript": "^3.8.3",
     "typescript-eslint-parser": "^22.0.0",
-    "start-server-and-test": "^1.11.2",
     "vue-template-compiler": "^2.6.11"
   }
 }

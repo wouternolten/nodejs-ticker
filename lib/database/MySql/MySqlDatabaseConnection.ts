@@ -3,6 +3,7 @@ import { IDatabaseConnection } from "../IDatabaseConnection";
 import { Connection, ConnectionOptions, createConnection, QueryOptions } from "mysql2";
 import { injectable } from "inversify";
 import "reflect-metadata";
+import {create} from "domain";
 
 @injectable()
 export class MySqlDatabaseConnection implements IDatabaseConnection {
@@ -62,6 +63,16 @@ export class MySqlDatabaseConnection implements IDatabaseConnection {
         if (error) reject(error);
 
         return resolve(result);
+      });
+    });
+  }
+
+  async end(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.connection.end((error) => {
+        if (error) reject(error);
+
+        return resolve();
       });
     });
   }

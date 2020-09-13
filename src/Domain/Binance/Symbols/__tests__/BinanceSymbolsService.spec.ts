@@ -1,4 +1,4 @@
-import { BinanceSymbolsService } from "./BinanceSymbolsService";
+import { BinanceSymbolsService } from "../BinanceSymbolsService";
 import { AxiosStatic } from "axios";
 import axios from "axios";
 
