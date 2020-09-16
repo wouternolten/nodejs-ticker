@@ -14,7 +14,8 @@ describe('CoinRepository test suite', () => {
       close: jest.fn(),
       beginTransaction: jest.fn(),
       rollback: jest.fn(),
-      execute: jest.fn(() => ({ affectedRows: 1 }))
+      execute: jest.fn(() => ({ affectedRows: 1 })),
+      end: jest.fn()
     };
     logger = { error: jest.fn(), info: jest.fn() };
 

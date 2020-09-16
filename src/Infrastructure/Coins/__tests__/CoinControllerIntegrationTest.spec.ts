@@ -147,6 +147,6 @@ afterEach(async (done) => {
 });
 
 afterAll(async (done) => {
-  await connection.end();
+  connection.close();
   done();
 });

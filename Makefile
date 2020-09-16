@@ -42,4 +42,3 @@ test-unit: ## Run all unit tests
 
 test-acceptance:
 	npm run cy:run-frontend
-	npm run cy:run-backend

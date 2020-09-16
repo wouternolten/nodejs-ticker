@@ -6,7 +6,6 @@
   "scripts": {
     "cy:open": "CYPRESS_BASE_URL=http://localhost:8080 cypress open",
     "cy:run-frontend": "CYPRESS_BASE_URL=http://localhost:8080 cypress run --project ./cypress/frontend",
-    "cy:run-backend": "CYPRESS_BASE_URL=http://localhost:3000 cypress run --project ./cypress/backend",
     "lint": "eslint .",
     "start-backend": "ts-node-dev index.ts",
     "start-frontend": "vue-cli-service serve",

@@ -51,7 +51,7 @@ describe('Errors in form', () => {
     });
 
     it('Should show error when symbol name has more than 10 characters', () => {
-        getTestAttribute(symbolInput).type('THISHASWAAAAAAYTOMANYCHARACTERS');
+        getTestAttribute(symbolInput).type('SOMEBODYONCE');
 
         getTestAttribute(addButtonAttribute).click();
 
@@ -61,7 +61,7 @@ describe('Errors in form', () => {
     });
 
     it('Should show error when symbol name not only letters', () => {
-        getTestAttribute(symbolInput).type('BTC USDT');
+        getTestAttribute(symbolInput).type('B T C');
 
         getTestAttribute(addButtonAttribute).click();
 
@@ -71,8 +71,8 @@ describe('Errors in form', () => {
     });
 
     it('Should show error when amount is less than zero', () => {
-        getTestAttribute(symbolInput).type('BTCUSDT');
-        getTestAttribute(amountInput).type('-10');
+        getTestAttribute(symbolInput).type('BTC');
+        getTestAttribute(amountInput).type('-1');
 
         getTestAttribute(addButtonAttribute).click();
 
@@ -82,8 +82,8 @@ describe('Errors in form', () => {
     });
 
     it('Should should only accept numbers in amount field', () => {
-        getTestAttribute(symbolInput).type('BTCUSDT');
-        getTestAttribute(amountInput).type('blablabla');
+        getTestAttribute(symbolInput).type('BTC');
+        getTestAttribute(amountInput).type('b');
 
         getTestAttribute(addButtonAttribute).click();
 
