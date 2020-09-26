@@ -1,19 +1,12 @@
-import { ICoinController } from "../../Domain/Coins/ICoinController";
-import { ICoin } from "../../Domain/Coins/ICoin";
-import { injectable, inject } from "inversify";
-import { TYPES } from "../../../types/inversify/types";
-import { ICoinService } from "../../Domain/Coins/ICoinService";
+import {ICoinController} from "../../Domain/Coins/ICoinController";
+import {ICoin} from "../../Domain/Coins/ICoin";
+import {inject, injectable} from "inversify";
+import {TYPES} from "../../../types/inversify/types";
+import {ICoinService} from "../../Domain/Coins/ICoinService";
 import express from 'express';
-import {
-  BAD_REQUEST,
-  CREATED,
-  INTERNAL_SERVER_ERROR,
-  NO_CONTENT,
-  NOT_IMPLEMENTED,
-  OK
-} from "http-status-codes";
+import {BAD_REQUEST, CREATED, INTERNAL_SERVER_ERROR, OK} from "http-status-codes";
 import "reflect-metadata";
-import { validate } from "../../../lib/utils/validate";
+import {validate} from "../../../lib/utils/validate";
 import storeCoinSchema from "../../../schemas/coins/storeCoinSchema.json";
 import deleteCoinSchema from "../../../schemas/coins/deleteCoinSchema.json";
 import {Logger} from "../../../lib/utils/logger";

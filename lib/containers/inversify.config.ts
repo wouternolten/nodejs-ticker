@@ -1,16 +1,16 @@
 import "reflect-metadata";
-import { Container } from "inversify";
-import { CoinController } from "../../src/Infrastructure/Coins/CoinController";
-import { CoinService } from "../../src/Domain/Coins/CoinService";
-import { CoinRepository } from "../../src/Infrastructure/Coins/CoinRepository";
-import { TYPES } from "../../types/inversify/types";
-import { MySqlDatabaseConnection } from "../database/MySql/MySqlDatabaseConnection";
-import { Logger } from "../utils/logger";
+import {Container} from "inversify";
+import {CoinRepository} from "../../src/Infrastructure/Coins/CoinRepository";
+import {TYPES} from "../../types/inversify/types";
+import {MySqlDatabaseConnection} from "../database/MySql/MySqlDatabaseConnection";
+import {Logger} from "../utils/logger";
+import bindControllerContainers from "./controllers/controllers.config";
+import bindServiceContainers from "./services/services.config";
 
 const container = new Container();
 
-container.bind<CoinController>(TYPES.CoinController).to(CoinController);
-container.bind<CoinService>(TYPES.CoinService).to(CoinService);
+bindControllerContainers(container);
+bindServiceContainers(container);
 container.bind<CoinRepository>(TYPES.CoinRepository).to(CoinRepository);
 container.bind<MySqlDatabaseConnection>(TYPES.MySqlDatabaseConnection).to(MySqlDatabaseConnection);
 container.bind<Logger>(TYPES.Logger).to(Logger);
