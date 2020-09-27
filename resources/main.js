@@ -1,14 +1,17 @@
 import Vue from 'vue';
 import App from './App.vue';
 import {
-    MdTable,
-    MdContent,
-    MdCard,
-    MdProgress,
-    MdRipple,
-    MdButton,
-    MdIcon,
-    MdField
+  MdTable,
+  MdContent,
+  MdCard,
+  MdProgress,
+  MdRipple,
+  MdButton,
+  MdIcon,
+  MdField,
+  MdAutocomplete,
+  MdMenu,
+  MdList
 } from 'vue-material/dist/components';
 import 'vue-material/dist/vue-material.min.css';
 import 'vue-material/dist/theme/default.css';
@@ -23,6 +26,9 @@ Vue.use(MdRipple);
 Vue.use(MdButton);
 Vue.use(MdIcon);
 Vue.use(MdField);
+Vue.use(MdAutocomplete);
+Vue.use(MdMenu);
+Vue.use(MdList);
 
 new Vue({
     render: h => h(App),

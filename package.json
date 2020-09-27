@@ -4,7 +4,7 @@
   "private": true,
   "description": "A NodeJS ticker interface.",
   "scripts": {
-    "cy:open": "CYPRESS_BASE_URL=http://localhost:8080 cypress open",
+    "cy:open": "CYPRESS_BASE_URL=http://localhost:8080 cypress open --project ./cypress/frontend",
     "cy:run-frontend": "CYPRESS_BASE_URL=http://localhost:8080 cypress run --project ./cypress/frontend",
     "lint": "eslint .",
     "start-backend": "ts-node-dev index.ts",

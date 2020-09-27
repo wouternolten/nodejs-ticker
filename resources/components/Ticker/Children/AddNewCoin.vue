@@ -9,14 +9,22 @@
                 <md-card-content>
                     <div class="md-layout md-gutter">
                         <div class="md-layout-item md-small-size-100">
-                            <md-field :class="getValidationClass('symbol')">
-                                <label for="form-symbol">Symbol name</label>
-                                <md-input name="form-symbol" id="form-symbol" v-model="form.symbol" :disabled="sending" test-id="input-symbol-name"/>
-                                <span class="md-error" v-if="!$v.form.symbol.required">Symbol is required.</span>
-                                <span class="md-error" v-else-if="!$v.form.symbol.minLength">Should be at least 1 character.</span>
-                                <span class="md-error" v-else-if="!$v.form.symbol.maxLength">Can have a max of 10 characters.</span>
-                                <span class="md-error" v-else-if="!$v.form.symbol.pattern">Only letters allowed.</span>
-                            </md-field>
+                          <md-progress-spinner class="absolute__center" v-if="!availablePairs" md-mode="indeterminate"></md-progress-spinner>
+                          <h4 v-if="availablePairs && availablePairs.length === 0">No pairs available for this currency. Please select an other currency.</h4>
+                          <md-autocomplete
+                            v-if="availablePairs && availablePairs.length > 0"
+                            name="form-symbol"
+                            v-model="form.symbol"
+                            :md-options="availablePairs"
+                            :class="getValidationClass('symbol')"
+                            test-id="input-symbol-name">
+                            <label>Symbol name</label>
+                            <span class="md-error" v-if="!$v.form.symbol.required">Symbol is required.</span>
+                            <span class="md-error" v-else-if="!$v.form.symbol.minLength">Should be at least 1 character.</span>
+                            <span class="md-error" v-else-if="!$v.form.symbol.maxLength">Can have a max of 10 characters.</span>
+                            <span class="md-error" v-else-if="!$v.form.symbol.pattern">Only letters allowed.</span>
+                            <span class="md-error" v-else-if="!$v.form.symbol.mustBeInArray">Ticker {{form.symbol}} doesn't exist for currency.</span>
+                          </md-autocomplete>
                         </div>
 
                         <div class="md-layout-item md-small-size-100">
@@ -47,14 +55,22 @@
         maxLength,
         minValue
     } from 'vuelidate/lib/validators';
-    import {pattern} from "../../../lib/utils/validators";
+    import {pattern, inArray} from "../../../lib/utils/validators";
     import axios from 'axios';
+    import { SymbolService } from "../../../services/SymbolService";
+
+    const BASE = 'USDT';
 
     export default {
         name: "AddNewTicker",
         mixins: [validationMixin],
         props: {
             selectedCoin: Object
+        },
+        created() {
+              this.symbolService
+                .fetchFilteredSymbols(BASE)
+                .then(result => this.availablePairs = result.map((pair) => pair.slice(0, pair.lastIndexOf(BASE))));
         },
         mounted() {
           if(this.selectedCoin) {
@@ -67,20 +83,25 @@
                 symbol: null,
                 amount: null
             },
-            sending: false
+            sending: false,
+            availablePairs: null,
+            symbolService: new SymbolService()
         }),
-        validations: {
-          form: {
+        validations() {
+          return {
+            form: {
               symbol: {
-                  required,
-                  minLength: minLength(1),
-                  maxLength: maxLength(10),
-                  pattern: pattern(/^[A-Za-z]+$/)
+                required,
+                minLength: minLength(1),
+                maxLength: maxLength(10),
+                pattern: pattern(/^[A-Za-z]+$/),
+                mustBeInArray: inArray(this.availablePairs)
               },
               amount: {
-                  required,
-                  minValue: minValue(0)
+                required,
+                minValue: minValue(0)
               }
+            }
           }
         },
         methods: {

@@ -9,6 +9,8 @@ beforeEach(() => {
     cy.server();
     cy.route('/coins', []).as('coins');
     cy.route('/exchange/usdeur', 0.988).as('exchange');
+    cy.route('/symbols?currency=**', ['BTCUSDT', 'ETHUSDT', 'XRPUSDT']).as('filteredSymbol');
+
 
     cy.visit('/');
     getTestAttribute('fab-button-add').click();
@@ -51,7 +53,7 @@ describe('Errors in form', () => {
     });
 
     it('Should show error when symbol name has more than 10 characters', () => {
-        getTestAttribute(symbolInput).type('SOMEBODYONCE');
+        getTestAttribute(symbolInput).find('input').type('SOMEBODYONCE');
 
         getTestAttribute(addButtonAttribute).click();
 
@@ -61,7 +63,7 @@ describe('Errors in form', () => {
     });
 
     it('Should show error when symbol name not only letters', () => {
-        getTestAttribute(symbolInput).type('B T C');
+        getTestAttribute(symbolInput).find('input').type('B T C');
 
         getTestAttribute(addButtonAttribute).click();
 
@@ -71,7 +73,7 @@ describe('Errors in form', () => {
     });
 
     it('Should show error when amount is less than zero', () => {
-        getTestAttribute(symbolInput).type('BTC');
+        getTestAttribute(symbolInput).find('input').type('BTC');
         getTestAttribute(amountInput).type('-1');
 
         getTestAttribute(addButtonAttribute).click();
@@ -82,7 +84,7 @@ describe('Errors in form', () => {
     });
 
     it('Should should only accept numbers in amount field', () => {
-        getTestAttribute(symbolInput).type('BTC');
+        getTestAttribute(symbolInput).find('input').type('BTC');
         getTestAttribute(amountInput).type('b');
 
         getTestAttribute(addButtonAttribute).click();
@@ -91,14 +93,25 @@ describe('Errors in form', () => {
             .first()
             .contains('Amount is required')
     });
+
+    it('Should only accept existing tickers for currency', () => {
+      getTestAttribute(symbolInput).find('input').type('INVALID');
+      getTestAttribute(amountInput).type('1');
+
+      getTestAttribute(addButtonAttribute).click();
+
+      cy.get('.md-error')
+        .first()
+        .contains('Ticker INVALID doesn\'t exist for currency.');
+    })
 });
 describe('Happy flow form', () => {
     it('Should make a POST call to coin when adding a valid coin', () => {
         cy.route('POST', '/coins', []).as('postCoins');
-        const symbol = 'btcusdt';
+        const symbol = 'BTC';
         const amount = '10';
 
-        getTestAttribute(symbolInput).type(symbol);
+        getTestAttribute(symbolInput).find('input').type(symbol);
         getTestAttribute(amountInput).type(amount);
 
         getTestAttribute(addButtonAttribute).click();
